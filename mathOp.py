@@ -44,7 +44,7 @@ def solveEquation(eqstr, verbose=False):
     # remove whitespace from the equation string
     eqstr = eqstr.replace(" ", "")
 
-    # embrace x blocks
+    # embrace ODM terms
     if countX(eqstr) > 1:
         eqstr = embraceX(eqstr)
 
@@ -100,7 +100,6 @@ def solveEquation(eqstr, verbose=False):
     for term in terms:
         if verbose: print(f"Term: {term}, Last Term: {lastTerm}")
 
-        # reorder equation (so it complies to the order of operations properly)
         if term.startswith('**') or term.startswith('^') or term.startswith('*') or term.startswith('/'):
             if lastTerm in operationsQueue:
                 operationsQueue.remove(lastTerm)
@@ -120,8 +119,7 @@ def solveEquation(eqstr, verbose=False):
 
     # turn our items into tuples
     operationsQueue = [tuple(x) if type(x) is list else tuple([x]) for x in operationsQueue]
-
-    # join terms back together
+    
     if verbose: print(f"\n{operationsQueue}")
 
     # solve it, at long last
